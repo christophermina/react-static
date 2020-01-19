@@ -180,17 +180,26 @@ export async function getRouteInfo(path, { priority } = {}) {
 
       console.log("PATH: " + path);
       // mbrowne modified
-      let getPath = `${routeInfoRoot}${pathJoin(
-        path,
-        'routeInfo.json'
+
+      //let getPath = `${routeInfoRoot}${pathJoin(
+      let getPath = `${pathJoin(
+          routeInfoRoot,
+          path,
+          'routeInfo.json'
       )}${cacheBuster}`
 
-      console.log("GET PATH: " + getPath);
+      console.log("GET PATH 1: " + getPath);
 
       if (process.env.REACT_STATIC_BASE_PATH) {
         console.log("REACT_STATIC_BASE_PATH...");
-        getPath = `/${getPath}`;
-        console.log("GET PATH: " + getPath);
+
+        // Ensure we are adding leading slash if it's not an absolute URL, and isn't already present
+        if (getPath.indexOf("http") !== 0 && getPath.indexOf("/") !== 0) {
+          getPath = `/${getPath}`;
+        }
+
+        //getPath = `/${getPath}`;
+        console.log("GET PATH 2: " + getPath);
       }
       // const getPath = `${routeInfoRoot}${pathJoin(
       //   path,
