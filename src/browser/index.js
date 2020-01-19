@@ -157,13 +157,19 @@ export async function getRouteInfo(path, { priority } = {}) {
       // mbrowne modified
       let routeInfoRoot
       if (process.env.REACT_STATIC_DISABLE_ROUTE_PREFIXING) {
+        console.log("DISABLE ROUTE PREFIXING...");
         routeInfoRoot =
           (process.env.REACT_STATIC_BASE_PATH
             ? process.env.REACT_STATIC_PUBLIC_PATH
             : process.env.REACT_STATIC_SITE_ROOT) || '/'
+
+        console.log("ROUTE INFO ROUTE: " + routeInfoRoot);
       } else {
+        console.log("NOT DISABLE ROUTE PREFIXING...");
         routeInfoRoot = process.env.REACT_STATIC_PUBLIC_PATH || '/'
+        console.log("ROUTE INFO ROUTE: " + routeInfoRoot);
       }
+
       // const routeInfoRoot =
       //   (process.env.REACT_STATIC_DISABLE_ROUTE_PREFIXING === 'true'
       //     ? process.env.REACT_STATIC_SITE_ROOT
@@ -172,13 +178,19 @@ export async function getRouteInfo(path, { priority } = {}) {
         ? `?${process.env.REACT_STATIC_CACHE_BUST}`
         : ''
 
+      console.log("PATH: " + path);
       // mbrowne modified
       let getPath = `${routeInfoRoot}${pathJoin(
         path,
         'routeInfo.json'
       )}${cacheBuster}`
+
+      console.log("GET PATH: " + getPath);
+
       if (process.env.REACT_STATIC_BASE_PATH) {
-        getPath = `/${getPath}`
+        console.log("REACT_STATIC_BASE_PATH...");
+        getPath = `/${getPath}`;
+        console.log("GET PATH: " + getPath);
       }
       // const getPath = `${routeInfoRoot}${pathJoin(
       //   path,
